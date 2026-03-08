@@ -10,20 +10,306 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap-grid.min.css"
         integrity="sha512-JQksK36WdRekVrvdxNyV3B0Q1huqbTkIQNbz1dlcFVgNynEMRl0F8OSqOGdVppLUDIvsOejhr/W5L3G/b3J+8w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Dancing+Script:wght@400..700&family=Poppins:wght@300;400;600&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
     <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: linear-gradient(135deg, #fce4ec, #f8bbd0, #f48fb1, #fce4ec);
+            background-size: 400% 400%;
+            animation: gradientShift 12s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
         .container {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 97vh;
+            position: relative;
         }
 
-        .container svg {
+        .container>svg {
             width: 50%;
             height: 50%;
+            z-index: 2;
+        }
+
+        .photo-bg-initial {
+            position: absolute;
+            width: 320px;
+            height: 320px;
+            background-image: url('assets/img/foto.jpeg');
+            background-size: cover;
+            background-position: center;
+            border-radius: 50%;
+            border: 6px solid rgba(255, 255, 255, 0.85);
+            z-index: 1;
+            top: 25%;
+            left: 72%;
+            transform: translate(-50%, -50%);
+            opacity: 1;
+            transition: all 0.5s ease;
+            animation: photoGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes photoGlow {
+
+            0%,
+            100% {
+                box-shadow: 0 0 30px rgba(230, 102, 138, 0.3), 0 0 60px rgba(230, 102, 138, 0.15);
+            }
+
+            50% {
+                box-shadow: 0 0 50px rgba(230, 102, 138, 0.5), 0 0 100px rgba(230, 102, 138, 0.25);
+            }
+        }
+
+        @media screen and (max-width: 900px) {
+            .photo-bg-initial {
+                width: 220px;
+                height: 220px;
+                top: 28%;
+                left: 75%;
+            }
+        }
+
+        /* Corazones flotantes */
+        .floating-heart {
+            position: fixed;
+            color: rgba(230, 102, 138, 0.25);
+            font-size: 20px;
+            animation: floatHeart linear infinite;
+            z-index: 0;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        @keyframes floatHeart {
+            0% {
+                transform: translateY(100vh) rotate(0deg) scale(0.5);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-10vh) rotate(360deg) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        /* Pétalos cayendo */
+        .falling-petal-bg {
+            position: fixed;
+            width: 12px;
+            height: 12px;
+            background: radial-gradient(ellipse, #f48fb1, #e91e63);
+            border-radius: 50% 0 50% 50%;
+            opacity: 0.3;
+            animation: petalFall linear infinite;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        @keyframes petalFall {
+            0% {
+                transform: translateY(-10vh) rotate(0deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.4;
+            }
+
+            100% {
+                transform: translateY(110vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Texto mejorado */
+        #text-click {
+            font-family: 'Dancing Script', cursive !important;
+            color: #c2185b !important;
+            font-size: 18px !important;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            animation: fadeInUp 1s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .heart-svg {
+            display: inline-block;
+            vertical-align: middle;
+            width: 30px;
+            height: 30px;
+            margin: 0 5px;
+            fill: #ff3860;
+            filter: drop-shadow(0 0 5px rgba(255, 56, 96, 0.5));
+            animation: heartbeat 1.2s infinite;
+        }
+
+        @keyframes heartbeat {
+            0% {
+                transform: scale(1);
+            }
+
+            15% {
+                transform: scale(1.25);
+            }
+
+            30% {
+                transform: scale(1);
+            }
+
+            45% {
+                transform: scale(1.15);
+            }
+
+            60% {
+                transform: scale(1);
+            }
+        }
+
+        .fire-emoji {
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 24px;
+            margin-left: -10px;
+            animation: flicker 0.5s infinite alternate;
+        }
+
+        @keyframes flicker {
+            0% {
+                transform: rotate(-1deg) scale(0.95);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: rotate(1deg) scale(1.05);
+                opacity: 1;
+            }
+        }
+
+        /* Indicador de toque */
+        .tap-indicator {
+            position: absolute;
+            bottom: 8%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Poppins', sans-serif;
+            font-weight: 300;
+            font-size: 14px;
+            color: rgba(194, 24, 91, 0.7);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            z-index: 10;
+            animation: pulse 2s ease-in-out infinite;
+            cursor: pointer;
+        }
+
+        .tap-indicator::before {
+            content: '✨';
+            margin-right: 8px;
+        }
+
+        .tap-indicator::after {
+            content: '✨';
+            margin-left: 8px;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 0.5;
+                transform: translateX(-50%) scale(1);
+            }
+
+            50% {
+                opacity: 1;
+                transform: translateX(-50%) scale(1.05);
+            }
+        }
+
+        /* Título elegante escena 2 */
+        .castle-title {
+            position: absolute;
+            top: 5%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Dancing Script', cursive;
+            font-size: 28px;
+            color: #c2185b;
+            text-shadow: 0 2px 10px rgba(194, 24, 91, 0.2);
+            white-space: nowrap;
+            opacity: 0;
+            animation: titleReveal 2s ease 2s forwards;
+            z-index: 5;
+        }
+
+        @keyframes titleReveal {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+
+        /* Transición suave */
+        .scene-fade {
+            animation: sceneFadeIn 1.5s ease;
+        }
+
+        @keyframes sceneFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
     </style>
 
@@ -80,6 +366,14 @@
             border-top-right-radius: 50% 30%;
             border-bottom: none;
             transform: perspective(200px) rotateX(8deg) scale(1.075, 1);
+            transition: transform 2s ease-in-out, top 2s ease-in-out, opacity 1.5s ease-in-out 1.5s;
+        }
+
+        #castle .shade-wrap #shade-main.open {
+            top: -300px;
+            transform: perspective(200px) rotateX(40deg) scale(0.8) rotateZ(10deg);
+            opacity: 0;
+            pointer-events: none;
         }
 
         #castle .shade-wrap #shade-main #shade-handle-big {
@@ -127,6 +421,14 @@
             background-color: #6d6179;
             transform: perspective(200px) rotateX(8deg) scale(1.075, 1);
             opacity: 0.15;
+            transition: transform 2s ease-in-out, top 2s ease-in-out, opacity 1.5s ease-in-out 1.5s;
+        }
+
+        #castle .shade-wrap #shade-main-reflections.open {
+            top: -300px;
+            transform: perspective(200px) rotateX(40deg) scale(0.8) rotateZ(10deg);
+            opacity: 0;
+            pointer-events: none;
         }
 
         #castle .shade-wrap #shade-main-reflections:after {
@@ -471,11 +773,16 @@
        C0, 21.054 24.618, -15.165 60.750, 8.554 
        C93.249, 29.888 57.749, 96.888 0, 117.388
        C-57.749, 96.888  -93.249, 29.888 -60.750, 8.554
-       C-24.618, -15.165  -0, 21.054 -0, 21.054z    
-    " />
+       C-24.618, -15.165  -0, 21.054 -0, 21.054z" />
             <path id="partialPath" />
-
+            <clipPath id="heartClip">
+                <use xlink:href="#shape" />
+            </clipPath>
         </defs>
+
+        <image id="heartPhoto" xlink:href="assets/img/foto2.jpeg" x="-100" y="-10" width="200" height="200"
+            clip-path="url(#heartClip)" preserveAspectRatio="xMidYMin slice"
+            style="opacity: 0; transition: opacity 2s ease;" />
 
         <text dy="-2">
             <textPath style="font-family: 'Oswald', sans-serif;" xlink:href="#partialPath" startOffset="12">
@@ -700,8 +1007,9 @@
     </script>
 
     <div id="castle" style="display: none;">
+        <div class="castle-title">✨ Feliz Día de la Mujer ✨</div>
         <div id="table"></div>
-        <div class="shade-wrap hover-animation" id="main">
+        <div class="shade-wrap hover-animation" id="main" style="z-index: 10;">
             <div id="flower-wrap">
                 <div id="stem"></div>
                 <div id="petal1"></div>
@@ -725,8 +1033,8 @@
         </div>
     </div>
 
-
     <div class="container" id="rose-t">
+        <div class="photo-bg-initial"></div>
         <svg viewBox="0 0 512 512">
             <path class="leafOne" d="M124.302,328.222c-2.466-2.901-5.036-5.334-7.648-7.212c-1.884-1.354-4.49-1.207-6.201,0.36
                                     c-32.608,29.866-18.892,84.017,24.01,94.752c2.251,0.563,4.612-0.548,5.624-2.636c0.407-0.841,0.781-1.732,1.138-2.648
@@ -770,14 +1078,23 @@
                                  c-16.072-12.613-41.381-26.674-72.329-23.977c-21.664,2.405-52.653,12.308-77.277,45.856c-13.392,19.922-16.495,52.272,4.132,72.986
                                  c3.371,3.385,7.075,6.243,11.008,8.573c4.885,2.894,10.125,4.964,15.515,6.228C354.624,212.802,357.947,181.899,370.903,162.627z" />
         </svg>
-        <p id="text-click" style=" display: none;   font-family: 'Oswald', sans-serif;
-        color: indianred;
-        font-size: 16px;
-        text-align: center; 
-        width: 200px;
-        text-wrap: balance;
-        top: 70%;">En este día especial te animo a seguir brillando con esa luz única que solo tú posees. Eres
-            capaz de lograr todo lo que te propongas. ❤️</p>
+        <div id="text-click"
+            style="display: none; position: absolute; z-index: 2; top: 68%; left: 50%; transform: translateX(-50%); width: 300px; display: flex; flex-direction: column; align-items: flex-end; gap: 10px;">
+            <div
+                style="font-family: 'Oswald', sans-serif; color: indianred; font-size: 16px; text-align: center; text-wrap: balance; width: 100%;">
+                En este día especial te animo a seguir brillando con esa luz única que solo tú posees. Eres capaz de
+                lograr
+                todo lo que te propongas. ❤️🔥
+            </div>
+            <div style="text-align: right; padding-right: 20px;">
+                <span
+                    style="font-family: 'Dancing Script', cursive; font-size: 20px; font-weight: bold; color: indianred; line-height: 1.1;">
+                    Con amor,<br>
+                    <span style="font-size: 24px;">Juan David ❤️</span>
+                </span>
+            </div>
+        </div>
+        <div class="tap-indicator" style="display: none;" id="tap-hint">Toca la rosa</div>
     </div>
 
 
@@ -789,12 +1106,20 @@
 
         (() => {
             setTimeout(() => {
-                document.querySelector("#text-click").style.display = "inherit";
+                document.querySelector("#text-click").style.display = "flex";
+                document.querySelector("#tap-hint").style.display = "block";
             }, 4000);
             document.querySelector("#rose-t").onclick = function () {
                 document.querySelector("#rose-t").style.display = "none";
-                document.querySelector("#castle").style.display = "inherit";
+                const castle = document.querySelector("#castle");
+                castle.style.display = "inherit";
+                castle.classList.add("scene-fade");
                 document.querySelector("#theSvg").style.display = "inherit"
+
+                setTimeout(() => {
+                    document.querySelector("#shade-main").classList.add("open");
+                    document.querySelector("#shade-main-reflections").classList.add("open");
+                }, 1000);
 
                 rid = window.requestAnimationFrame(Typing);
                 function Typing() {
@@ -802,6 +1127,7 @@
                     if (t >= 1) {
                         window.cancelAnimationFrame(rid);
                         rid = null;
+                        document.querySelector("#heartPhoto").style.opacity = "1";
                     } else {
                         t += 0.0025;
                     }
@@ -961,6 +1287,42 @@
         });
 
 
+    </script>
+
+    <!-- Particles: floating hearts & falling petals -->
+    <script>
+        function createFloatingHearts() {
+            const hearts = ['❤', '💕', '💖', '♥', '🌹', '🌺'];
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.classList.add('floating-heart');
+                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.fontSize = (Math.random() * 20 + 14) + 'px';
+                heart.style.animationDuration = (Math.random() * 6 + 8) + 's';
+                heart.style.animationDelay = Math.random() * 2 + 's';
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 16000);
+            }, 1200);
+        }
+
+        function createFallingPetals() {
+            setInterval(() => {
+                const petal = document.createElement('div');
+                petal.classList.add('falling-petal-bg');
+                petal.style.left = Math.random() * 100 + 'vw';
+                const size = Math.random() * 10 + 6;
+                petal.style.width = size + 'px';
+                petal.style.height = size + 'px';
+                petal.style.animationDuration = (Math.random() * 5 + 6) + 's';
+                petal.style.animationDelay = Math.random() * 3 + 's';
+                document.body.appendChild(petal);
+                setTimeout(() => petal.remove(), 14000);
+            }, 800);
+        }
+
+        createFloatingHearts();
+        createFallingPetals();
     </script>
 </body>
 
